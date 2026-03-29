@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using Domain.Models.Interfaces;
+
+namespace Domain.Models
 {
     public class Director : BaseModel<Guid>
     {

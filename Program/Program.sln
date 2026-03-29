@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Program.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\MoviesLib\Domain.csproj", "{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\Application\Application.csproj", "{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
