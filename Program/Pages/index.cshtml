@@ -1,5 +1,15 @@
 ﻿@page
 @model Program.Pages.IndexModel
 @{
+    var result = Model.MovieService.GetAll();
+    if (result.Failed)
+        return;
+    foreach(var movie in result.Data!)
+    {
+        <div>
+            <h1>@movie.Name</h1>
+            <h1>@movie.Director.FirstName</h1>
+            <h1>@movie.Genre</h1>
+        </div>
+    }
 }
-<h2>Hello</h2>

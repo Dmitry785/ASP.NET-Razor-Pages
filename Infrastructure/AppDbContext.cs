@@ -16,5 +16,11 @@ namespace Infrastructure
         {
             Database.EnsureCreated();
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>().HasIndex(x => x.Id);
+            modelBuilder.Entity<Director>().HasIndex(x => x.Id);
+            modelBuilder.Entity<Genre>().HasIndex(x => x.Id);
+        }
     }
 }

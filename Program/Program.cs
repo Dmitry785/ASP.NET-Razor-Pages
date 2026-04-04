@@ -1,3 +1,7 @@
+using Application;
+using Infrastructure;
+using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Program
 {
@@ -6,6 +10,10 @@ namespace Program
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddApplicationServices();
+            builder.Services.AddAppDbContext(builder.Configuration);
+
             builder.Services.AddRazorPages(options => options.RootDirectory = "/Pages");
             var app = builder.Build();
 

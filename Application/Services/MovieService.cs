@@ -7,10 +7,11 @@ using Application.Common;
 using Application.Services.Interfaces;
 using Domain.Models;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
-    public class MovieService : IMovieService
+    public class MovieService : IDataAccessService<Movie>
     {
         private readonly IDataStorage _dataStorage;
         public MovieService(IDataStorage dataStorage)
@@ -25,22 +26,31 @@ namespace Application.Services
         }
         public Result DeleteById(Guid id)
         {
-
+            var movie = _dataStorage.Movies.FirstOrDefault(x => x.Id == id);
+            if (movie is null)
+                return Result.Fail("Не удалось найти фильм");
+            _dataStorage.Movies.Remove(movie);
+            return Result.Ok();
         }
-
-        public Result<List<Movie>> GetAllMovies()
+        public Result<List<Movie>> GetAll()
         {
-            throw new NotImplementedException();
+            return Result.Ok(_dataStorage.Movies.AsNoTracking().ToList());
         }
-
         public Result<Movie> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var movie = _dataStorage.Movies.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            if (movie is null)
+                return Result<Movie>.Fail("Не удалось найти фильм");
+            return Result.Ok(movie);
         }
 
         public Result Update(Movie movie)
         {
-            throw new NotImplementedException();
+            var updateMovie = _dataStorage.Movies.FirstOrDefault(x => x.Id == movie.Id);
+            if (updateMovie is null)
+                return Result<Movie>.Fail("Не удалось найти фильм");
+            updateMovie = movie;
+            return Result.Ok();
         }
     }
 }

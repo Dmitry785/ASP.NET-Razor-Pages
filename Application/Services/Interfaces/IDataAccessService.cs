@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Common;
 using Domain.Models;
+using Domain.Models.Interfaces;
 
 namespace Application.Services.Interfaces
 {
-    internal interface IMovieService
+    public interface IDataAccessService<T> where T : BaseModel<Guid>
     {
-        Result<List<Movie>> GetAllMovies();
-        Result<Movie> GetById(Guid id);
-        Result<Guid> Create(Movie movie);
-        Result Update(Movie movie);
+        Result<List<T>> GetAll();
+        Result<T> GetById(Guid id);
+        Result<Guid> Create(T movie);
+        Result Update(T movie);
         Result DeleteById(Guid id);
     }
 }
