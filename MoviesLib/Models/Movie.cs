@@ -13,13 +13,15 @@ namespace Domain.Models
         {
 
         }
-        public Movie(string name, string desc, Director director, Genre genre, List<Schedule> schedules)
+        public Movie(string name, string desc, Director director, Genre genre)
         {
             Name = name;
             Director = director;
             Genre = genre;
-            Schedules = schedules;
             Description = desc;
+            Schedules = new List<Schedule>();
         }
+
+
     }
 }
