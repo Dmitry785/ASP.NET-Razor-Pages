@@ -1,15 +1,18 @@
 ﻿@page
 @model Program.Pages.IndexModel
+@using Domain.Models;
 @{
-    var result = Model.MovieService.GetAll();
-    if (result.Failed)
-        return;
-    foreach(var movie in result.Data!)
-    {
-        <div>
-            <h1>@movie.Name</h1>
-            <h1>@movie.Director.FirstName</h1>
-            <h1>@movie.Genre</h1>
-        </div>
+    if (ViewData.TryGetValue("Movies", out var value)){
+        var movies = (List<Movie>?)value;
+        if(movies != null){
+            foreach (var movie in movies)
+            {
+                <div>
+                    <h1>@movie.Name</h1>
+                    <h1>@movie.Director.FirstName</h1>
+                    <h1>@movie.Genre</h1>
+                </div>
+            }
+        }
     }
 }

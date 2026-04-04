@@ -12,7 +12,7 @@ namespace Program
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddApplicationServices();
-            builder.Services.AddAppDbContext(builder.Configuration);
+            builder.Services.AddAppDbContext_Sqlite(builder.Configuration);
 
             builder.Services.AddRazorPages(options => options.RootDirectory = "/Pages");
             var app = builder.Build();

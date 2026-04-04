@@ -15,7 +15,10 @@ namespace Program.Pages
         }
         public void OnGet()
         {
-
+            var movies = MovieService.GetAll();
+            if (movies.Failed)
+                return;
+            ViewData.Add("Movies", movies.Data!);
         }
     }
 }
