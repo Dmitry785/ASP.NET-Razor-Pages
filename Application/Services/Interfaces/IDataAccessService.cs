@@ -14,6 +14,7 @@ namespace Application.Services.Interfaces
         Result<List<T>> GetAll();
         Result<T> GetById(Guid id);
         Result<Guid> Create(T movie);
+        Result AddRange(List<T> movies);
         Result Update(T movie);
         Result DeleteById(Guid id);
     }

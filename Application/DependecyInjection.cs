@@ -11,6 +11,8 @@ namespace Program
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IDataAccessService<Movie>, MovieService>();
+            services.AddTransient<IDataAccessService<Director>, DirectorService>();
+            services.AddTransient<IDataAccessService<Genre>, GenreService>();
             services.AddTransient<IDataAccessService<Schedule>, ScheduleService>();
             return services;
         }

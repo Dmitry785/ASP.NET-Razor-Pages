@@ -18,6 +18,13 @@ namespace Application.Services
         {
             _dataStorage = dataStorage;
         }
+
+        public Result AddRange(List<Schedule> schedules)
+        {
+            _dataStorage.Schedules.AddRange(schedules);
+            return Result.Ok();
+        }
+
         public Result<Guid> Create(Schedule schedule)
         {
             var id = _dataStorage.Schedules.Add(schedule).Entity.Id;

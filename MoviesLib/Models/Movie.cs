@@ -8,18 +8,22 @@ namespace Domain.Models
         public Director Director { get; set; }
         public Genre Genre { get; set; }
         public string Description { get; set; }
+        public string? Poster { get; set; }
         public List<Schedule> Schedules { get; set; }
+        public int Year { get; set; }
         public Movie()
         {
 
         }
-        public Movie(string name, string desc, Director director, Genre genre)
+        public Movie(string name, string desc, int year, Director director, Genre genre, string? poster = null)
         {
             Name = name;
             Director = director;
+            Year = year;
             Genre = genre;
             Description = desc;
             Schedules = new List<Schedule>();
+            Poster = poster;
         }
 
 
