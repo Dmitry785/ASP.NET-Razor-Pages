@@ -1,0 +1,13 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        @await Html.PartialAsync("_MetaPartial")
+        @await Html.PartialAsync("_CssPartial")
+    </head>
+    <body>
+        <header>
+            <h1>@(ViewBag.Title ?? "Movies")</h1>
+        </header>
+        @RenderBody()
+    </body>
+</html>

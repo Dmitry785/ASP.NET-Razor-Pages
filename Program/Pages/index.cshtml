@@ -2,6 +2,9 @@
 @model Program.Pages.IndexModel
 @using Domain.Models;
 @{
+    Layout = "_Layout";
+}
+@{
     if (ViewData.TryGetValue("Movies", out var value)){
         var movies = (List<Movie>?)value;
         if(movies != null){
@@ -9,7 +12,7 @@
             {
                 <div>
                     <h1>@movie.Name</h1>
-                    <h1>@movie.Director.FirstName</h1>
+                    <h1>@movie.Director.FullName</h1>
                     <h1>@movie.Genre</h1>
                 </div>
             }

@@ -10,6 +10,9 @@ namespace Domain.Models
         {
 
         }
+        public Schedule(DateTime dateTime)
+        {
+        }
         public Schedule(DateTime dateTime, Movie movie)
         {
             Id = Guid.NewGuid();

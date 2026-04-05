@@ -18,6 +18,13 @@ namespace Application.Services
         {
             _dataStorage = dataStorage;
         }
+
+        public Result AddRange(List<Movie> movies)
+        {
+            _dataStorage.Movies.AddRange(movies);
+            _dataStorage.SaveChanges();
+            return Result.Ok();
+        }
         public Result<Guid> Create(Movie movie)
         {
             var id = _dataStorage.Movies.Add(movie).Entity.Id;
@@ -34,7 +41,7 @@ namespace Application.Services
         }
         public Result<List<Movie>> GetAll()
         {
-            return Result.Ok(_dataStorage.Movies.AsNoTracking().ToList());
+            return Result.Ok(_dataStorage.Movies.Include(x=>x.Director).Include(x=>x.Schedules).AsNoTracking().ToList());
         }
         public Result<Movie> GetById(Guid id)
         {
