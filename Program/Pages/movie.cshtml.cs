@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Program.Pages
 {
-    public class GameModel : PageModel
+    public class MovieModel : PageModel
     {
         [BindProperty(SupportsGet=true)]
         public Guid Id { get; set; }

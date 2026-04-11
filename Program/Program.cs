@@ -15,7 +15,7 @@ namespace Program
         const bool USE_DEFAULT_DATA = true;
         //Если true, использует OMDb API для загрузки фильмов,
         //иначе данные по умолчанию
-        const bool USE_DEFAULT_DATA_API = false;
+        const bool USE_DEFAULT_DATA_API = true;
         public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder( new WebApplicationOptions
@@ -38,7 +38,16 @@ namespace Program
             {
                 if (USE_DEFAULT_DATA_API)
                 {
-                    MoviesApiService moviesApi = new MoviesApiService("5b03492e");
+                    MoviesApiService moviesApi = new MoviesApiService("5b03492e", new List<string>()
+                        {
+                            "Matrix",
+                            "Misery",
+                            "Terminator",
+                            "1984 ",
+                            "v for",
+                            "harry potter",
+                            "godfather"
+                        });
                     foreach (var movieData in await moviesApi.LoadSomeMovies())
                     {
                         var directorsResult = directorsDataAccess.GetAll();

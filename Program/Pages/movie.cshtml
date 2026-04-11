@@ -1,11 +1,11 @@
-﻿@page
+﻿@page "{id:guid}"
 @using Application.Services.Interfaces
 @using Domain.Models
-@model Program.Pages.GameModel
+@model Program.Pages.MovieModel
 @inject IDataAccessService<Movie> Movies;
 @inject IDataAccessService<Schedule> Schedules;
 @{
-    ViewBag.Title = "Game";
+    ViewBag.Title = "Movie";
     Layout = "_Layout";
 }
 @{
@@ -14,10 +14,14 @@
     if (movieResult.Success)
         movie = movieResult.Data!;
 }
-
+<div id ="return-container">
+    <a asp-page="index">
+        Return back to the home page
+    </a>
+</div>
 
 <div class="current-movie-container">
-    <img class="movie-poster" src="@movie.Poster"/>
+    <img class="movie-poster" src="@movie.Poster" alt="Movie"/>
     <div class="movie-description-container">
         <h1 class="movie-name">@movie.Name</h1>
         <h1 class="movie-director">@movie.Director.FullName</h1>
@@ -31,16 +35,28 @@
         if (schedulesResult.Success) {
             foreach (var schedule in schedulesResult.Data!.Where(x => x.Movie.Id == movie.Id))
             {
-                <div class="schedule-item">
-                <h1 class="schedule-item-session-time">@schedule.SessionTime.ToString("yyyy-MM-dd")</h1>
-            </div>
+                            <div class="schedule-item">
+                                <h1 class="schedule-item-session-time">@schedule.SessionTime.ToString("yyyy-MM-dd")</h1>
+                            </div>
+            }
         }
     }
-}
 </div>
 
 <style>
+    #return-container {
+        margin: 20px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: white;
+        padding: 10px 30px;
+    }
+    #return-container a{
+            text-decoration: none;
+            color: inherit;
+    }
     .schedule-item{
+        flex-shrink: 0;
         background: linear-gradient(45deg, blue, green, lightblue, blue);
         height: 200px;
         width: 150px;
@@ -63,7 +79,7 @@
     .schedules-container {
         display: flex;
         overflow-x: auto;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 20px;
         margin: 5px;
         background-color: rgba(200, 255, 255, 0.8);

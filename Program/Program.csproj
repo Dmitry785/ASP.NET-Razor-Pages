@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Resource Include="static\images\movies-background.jpg" />
-    <Resource Include="static\images\movies.background.png" />
   </ItemGroup>
 
 </Project>
