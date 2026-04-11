@@ -15,8 +15,8 @@ namespace Program
         const bool USE_DEFAULT_DATA = true;
         //Если true, использует OMDb API для загрузки фильмов,
         //иначе данные по умолчанию
-        const bool USE_DEFAULT_DATA_API = false;
-        public static void Main(string[] args)
+        const bool USE_DEFAULT_DATA_API = true;
+        public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder( new WebApplicationOptions
             {
@@ -39,7 +39,7 @@ namespace Program
                 if (USE_DEFAULT_DATA_API)
                 {
                     MoviesApiService moviesApi = new MoviesApiService("5b03492e");
-                    foreach (var movieData in moviesApi.LoadSomeMovies().Result)
+                    foreach (var movieData in await moviesApi.LoadSomeMovies())
                     {
                         var directorsResult = directorsDataAccess.GetAll();
                         var genresResult = genreDataAccess.GetAll();
@@ -68,13 +68,6 @@ namespace Program
                      movie3 = new Movie("Movie 3", "Movie 3 desc", 1999, director1, genre2),
                      movie4 = new Movie("Movie 4", "Movie 4 desc", 1999, director2, genre1),
                      movie5 = new Movie("Movie 5", "Movie 5 desc", 1999, director2, genre2);
-                    /*Schedule schedule1 = new Schedule(DateTime.Now, movie1),
-                        schedule2 = new Schedule(DateTime.Now, movie2),
-                        schedule3 = new Schedule(DateTime.Now, movie3),
-                        schedule4 = new Schedule(DateTime.Now, movie4),
-                        schedule5 = new Schedule(DateTime.Now, movie3),
-                        schedule6 = new Schedule(DateTime.Now, movie2),
-                        schedule7 = new Schedule(DateTime.Now, movie2);*/
                     movie1.Schedules.Add(new Schedule(DateTime.Now));
                     movie1.Schedules.Add(new Schedule(DateTime.Now));
                     movie2.Schedules.Add(new Schedule(DateTime.Now));

@@ -8,17 +8,11 @@ namespace Program.Pages
 {
     public class IndexModel : PageModel
     {
-        public IDataAccessService<Movie> MovieService { get; set; }
-        public IndexModel(IDataAccessService<Movie> service)
+        public IndexModel()
         {
-            MovieService = service;
         }
         public void OnGet()
         {
-            var movies = MovieService.GetAll();
-            if (movies.Failed)
-                return;
-            ViewData.Add("Movies", movies.Data!);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Application.Services
         }
         public Result<List<Movie>> GetAll()
         {
-            return Result.Ok(_dataStorage.Movies.Include(x=>x.Director).Include(x=>x.Schedules).AsNoTracking().ToList());
+            return Result.Ok(_dataStorage.Movies.Include(x=>x.Director).Include(x=>x.Schedules).Include(x=>x.Genre).AsNoTracking().ToList());
         }
         public Result<Movie> GetById(Guid id)
         {

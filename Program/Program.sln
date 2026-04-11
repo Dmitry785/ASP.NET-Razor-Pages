@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Program.csproj", "{26A07D91-B8F3-408E-8540-4EF37C072745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Program", "Program.csproj", "{26A07D91-B8F3-408E-8540-4EF37C072745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\MoviesLib\Domain.csproj", "{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\MoviesLib\Domain.csproj", "{0E5AEA72-6D25-4608-ABCD-4549F3384B9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{C2A7144B-5EE7-4F9C-8AB9-A4BAE5176488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "..\Application\Application.csproj", "{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "..\Application\Application.csproj", "{01C9797B-2DEC-4CE5-8902-F203CDCDBA64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

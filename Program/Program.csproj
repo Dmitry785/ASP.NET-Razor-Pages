@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="static\images\movies-background.jpg" />
+    <None Remove="static\images\movies.background.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="static\css\main.css" />
   </ItemGroup>
 
@@ -17,6 +22,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\MoviesLib\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="static\images\movies-background.jpg" />
+    <Resource Include="static\images\movies.background.png" />
   </ItemGroup>
 
 </Project>

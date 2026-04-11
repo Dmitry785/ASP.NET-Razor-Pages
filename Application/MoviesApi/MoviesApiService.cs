@@ -12,16 +12,22 @@ namespace Application.MoviesApi
 {
     public class MoviesApiService
     {
-        private readonly List<string> _moviesTitlesTemplated = new List<string>()
-        {
-            "Matrix",
-            "Misery",
-            "Terminator"
-        };
+        private readonly List<string> _moviesTitlesTemplated;
         private readonly string _api;
-        public MoviesApiService(string api) 
+        public MoviesApiService(string api)
         {
             _api = api;
+            _moviesTitlesTemplated = new List<string>()
+            {
+                "Matrix",
+                "Misery",
+                "Terminator"
+            };
+        }
+        public MoviesApiService(string api, List<string> titles) 
+        {
+            _api = api;
+            _moviesTitlesTemplated = titles;
         }
         private async Task<string?> GetFirstMovieImdb(HttpClient client, string requestPath)
         {
