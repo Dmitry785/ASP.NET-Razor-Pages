@@ -15,7 +15,7 @@ namespace Program
         const bool USE_DEFAULT_DATA = true;
         //Если true, использует OMDb API для загрузки фильмов,
         //иначе данные по умолчанию
-        const bool USE_DEFAULT_DATA_API = true;
+        const bool USE_DEFAULT_DATA_API = false;
         public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder( new WebApplicationOptions
@@ -75,6 +75,20 @@ namespace Program
                     movie3.Schedules.Add(new Schedule(DateTime.Now));
                     movie3.Schedules.Add(new Schedule(DateTime.Now));
                     movie4.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
+                    movie5.Schedules.Add(new Schedule(DateTime.Now));
                     movie5.Schedules.Add(new Schedule(DateTime.Now));
                     movie5.Schedules.Add(new Schedule(DateTime.Now));
                     moviesDataAccess.AddRange(new List<Movie>()

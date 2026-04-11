@@ -42,11 +42,11 @@ namespace Application.Services
         }
         public Result<List<Schedule>> GetAll()
         {
-            return Result.Ok(_dataStorage.Schedules.AsNoTracking().ToList());
+            return Result.Ok(_dataStorage.Schedules.Include(x => x.Movie).AsNoTracking().ToList());
         }
         public Result<Schedule> GetById(Guid id)
         {
-            var schedule = _dataStorage.Schedules.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var schedule = _dataStorage.Schedules.Include(x=>x.Movie).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (schedule is null)
                 return Result<Schedule>.Fail("Не удалось найти фильм");
             return Result.Ok(schedule);

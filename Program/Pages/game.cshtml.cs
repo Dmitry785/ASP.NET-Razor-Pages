@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Program.Pages
 {
-    public class gameModel : PageModel
+    public class GameModel : PageModel
     {
-        public void OnGet(Guid id)
+        [BindProperty(SupportsGet=true)]
+        public Guid Id { get; set; }
+        public void OnGet()
         {
-            Console.WriteLine("Hello");
+
         }
     }
 }

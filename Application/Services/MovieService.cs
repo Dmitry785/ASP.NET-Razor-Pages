@@ -45,7 +45,8 @@ namespace Application.Services
         }
         public Result<Movie> GetById(Guid id)
         {
-            var movie = _dataStorage.Movies.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var movie = _dataStorage.Movies.Include(x=>x.Director)
+                .Include(x=>x.Genre).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (movie is null)
                 return Result<Movie>.Fail("Не удалось найти фильм");
             return Result.Ok(movie);

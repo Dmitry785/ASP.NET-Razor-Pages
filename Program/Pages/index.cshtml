@@ -4,6 +4,7 @@
 @using Application.Services.Interfaces;
 @inject IDataAccessService<Movie> Movies;
 @{
+    ViewBag.Title = "Movies";
     Layout = "_Layout";
 }
 <div class="movies-container">
@@ -99,7 +100,10 @@
         $('.movie-item').click(function () {
             window.location.href = `/game?id=${$(this).data().id}`;
         }).mouseenter(function () {
-            $(this).children('.movie-item-poster').stop(true, true).fadeTo('fast', 0.7, function () {
+            $(this)
+            .children('.movie-item-poster')
+            .stop(true, true)
+            .fadeTo('fast', 0.7, function () {
                 $(this).fadeTo('fast', 1);
             });
         });
