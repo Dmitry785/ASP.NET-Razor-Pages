@@ -18,11 +18,11 @@ namespace Application.MoviesApi
         {
             _api = api;
             _moviesTitlesTemplated = new List<string>()
-            {
-                "Matrix",
-                "Misery",
-                "Terminator"
-            };
+        {
+            "Matrix",
+            "Misery",
+            "Terminator"
+        };
         }
         public MoviesApiService(string api, List<string> titles) 
         {
