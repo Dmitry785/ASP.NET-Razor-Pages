@@ -7,27 +7,47 @@
     ViewBag.Title = "Movies";
     Layout = "_Layout";
 }
-<div class="movies-container">
-    @{
-        var moviesResult = Movies.GetAll();
-        if(moviesResult.Success){
-            foreach (var movie in moviesResult.Data!)
-            {
-                <div class="movie-item" data-id="@movie.Id">
-                    <img class="movie-item-poster" src="@movie.Poster"/>
-                    <h1 class="movie-item-name">@movie.Name</h1>
-                    <h1 class="movie-item-director">@movie.Director.FullName</h1>
-                    <h1 class="movie-item-genre">@movie.Genre.Name</h1>
-                    <h1 class="movie-item-year">@movie.Year</h1>
-                </div>
+<div class="main-panel">
+    <div class="movies-container">
+        @{
+            var moviesResult = Movies.GetAll();
+            if(moviesResult.Success){
+                foreach (var movie in moviesResult.Data!)
+                {
+                            <div class="movie-item" data-id="@movie.Id">
+                                <img class="movie-item-poster" src="@movie.Poster"/>
+                                <h1 class="movie-item-name">@movie.Name</h1>
+                                <h1 class="movie-item-director">@movie.Director.FullName</h1>
+                                <h1 class="movie-item-genre">@movie.Genre.Name</h1>
+                                <h1 class="movie-item-year">@movie.Year</h1>
+                            </div>
+                }
             }
         }
-    }
+    </div>
+    <div class="filter-panel">
+    </div>
 </div>
 
 <style>
+    .filter-panel {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-auto-rows: 20px;
+        grid-auto-flow: row;
+        align-items: center;
+        gap: 10px 5px;
+        padding: 10px;
+    }
+    .filter-panel h1{
+        font-size: 20px;
+    }
+    .main-panel{
+        display: flex;
+    }
     .movies-container {
         display: flex;
+        flex: 1 1 300px;
         flex-wrap: wrap;
         gap: 30px 20px;
         margin: 5px 0;
@@ -107,5 +127,19 @@
                 $(this).fadeTo('fast', 1);
             });
         });
+        $('.filter-panel').append('<h1>Name:</h1>');
+        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<h1>Director:</h1>');
+        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<h1>Genre:</h1>');
+        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<h1>Session time:</h1>');
+        $('.filter-panel').append('<input type="date" form="filter_form">');
+        $('.filter-panel').append('<h1>Description:</h1>');
+        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<button type="submit" form="filter_form">Apply filter</button>');
+        $('.filter-panel button[type=submit]').click(function () {
+            alert('hello');
+        }).css({ "column-span", "span 2"});
     })
 </script>
