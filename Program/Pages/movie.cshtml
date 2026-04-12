@@ -26,6 +26,8 @@
         <h1 class="movie-name">@movie.Name</h1>
         <h1 class="movie-director">@movie.Director.FullName</h1>
         <h1 class="movie-genre">@movie.Genre.Name</h1>
+        <h1 class="movie-description">@movie.Description</h1>
+        <h1 class="movie-id">@movie.Id</h1>
         <h1 class="movie-year">@movie.Year</h1>
     </div>
 </div>
@@ -35,9 +37,9 @@
         if (schedulesResult.Success) {
             foreach (var schedule in schedulesResult.Data!.Where(x => x.Movie.Id == movie.Id))
             {
-                            <div class="schedule-item">
-                                <h1 class="schedule-item-session-time">@schedule.SessionTime.ToString("yyyy-MM-dd")</h1>
-                            </div>
+                <div class="schedule-item">
+                    <h1 class="schedule-item-session-time">@schedule.SessionTime.ToString("yyyy-MM-dd")</h1>
+                </div>
             }
         }
     }
@@ -90,6 +92,17 @@
         margin-right: auto;
         overflow: hidden;
         margin: 0 auto;
+    }
+    .movie-description {
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .movie-id {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .movie-description-container {
         flex: 0 0 50%;
