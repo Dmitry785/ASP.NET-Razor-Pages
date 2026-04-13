@@ -12,15 +12,21 @@
         @{
             var moviesResult = Movies.GetAll();
             if(moviesResult.Success){
-                foreach (var movie in moviesResult.Data!)
+                foreach (var movie in moviesResult.Data!.Where(x=>{
+                    return (Model.FilterName is null ? true : x.Name.ToLower().Contains(Model.FilterName.ToLower())) &&
+                        (Model.FilterDescription is null ? true : x.Description.ToLower().Contains(Model.FilterDescription.ToLower())) &&
+                        (Model.FilterDirector is null ? true : x.Director.FullName.ToLower().Contains(Model.FilterDirector.ToLower())) &&
+                        (Model.FilterGenre is null ? true : x.Genre.Name.ToLower().Contains(Model.FilterGenre.ToLower())) &&
+                        (Model.FilterSessionTime is null ? true : x.Schedules.Exists(x => DateOnly.FromDateTime(x.SessionTime) == Model.FilterSessionTime));
+                }))
                 {
-                            <div class="movie-item" data-id="@movie.Id">
-                                <img class="movie-item-poster" src="@movie.Poster"/>
-                                <h1 class="movie-item-name">@movie.Name</h1>
-                                <h1 class="movie-item-director">@movie.Director.FullName</h1>
-                                <h1 class="movie-item-genre">@movie.Genre.Name</h1>
-                                <h1 class="movie-item-year">@movie.Year</h1>
-                            </div>
+                    <div class="movie-item" data-id="@movie.Id">
+                        <img class="movie-item-poster" src="@movie.Poster"/>
+                        <h1 class="movie-item-name">@movie.Name</h1>
+                        <h1 class="movie-item-director">@movie.Director.FullName</h1>
+                        <h1 class="movie-item-genre">@movie.Genre.Name</h1>
+                        <h1 class="movie-item-year">@movie.Year</h1>
+                    </div>
                 }
             }
         }
@@ -31,20 +37,35 @@
 
 <style>
     .filter-panel {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-auto-rows: 20px;
-        grid-auto-flow: row;
-        align-items: center;
-        gap: 10px 5px;
-        padding: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        margin: 5px;
     }
-    .filter-panel h1{
-        font-size: 20px;
-    }
-    .main-panel{
+
+        .filter-panel form {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-auto-rows: 20px;
+            grid-auto-flow: row;
+            align-items: center;
+            gap: 10px 5px;
+            padding: 10px;
+        }
+
+        .filter-panel input {
+            min-width: 50%;
+        }
+
+        .filter-panel h1 {
+            font-size: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    .main-panel {
         display: flex;
     }
+
     .movies-container {
         display: flex;
         flex: 1 1 300px;
@@ -57,7 +78,7 @@
         align-items: flex-start;
     }
 
-    .movie-item { 
+    .movie-item {
         border-radius: 10px;
         overflow: hidden;
         display: flex;
@@ -128,18 +149,29 @@
             });
         });
         $('.filter-panel').append('<h1>Name:</h1>');
-        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<input form="filter_form" name="name">');
         $('.filter-panel').append('<h1>Director:</h1>');
-        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<input form="filter_form" name="director">');
         $('.filter-panel').append('<h1>Genre:</h1>');
-        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<input form="filter_form" name="genre">');
         $('.filter-panel').append('<h1>Session time:</h1>');
-        $('.filter-panel').append('<input type="date" form="filter_form">');
+        $('.filter-panel').append('<input type="date" form="filter_form" name="session_time">');
         $('.filter-panel').append('<h1>Description:</h1>');
-        $('.filter-panel').append('<input form="filter_form">');
+        $('.filter-panel').append('<input form="filter_form" name="desc">');
         $('.filter-panel').append('<button type="submit" form="filter_form">Apply filter</button>');
-        $('.filter-panel button[type=submit]').click(function () {
-            alert('hello');
-        }).css({ "column-span", "span 2"});
+        $('.filter-panel button[type=submit]').click(function (e) {
+            e.preventDefault();
+            const formData = new FormData($('#filter_form')[0]);
+            const dataObj = Object.fromEntries(formData.entries());
+            const urlParams = new URLSearchParams(dataObj);
+            console.log(`?${urlParams.toString()}`);
+            window.location.href = `/?${urlParams.toString()}`;
+        }).css({ "grid-column": "span 2"});
+        $('.filter-panel').wrapInner('<form id="filter_form"></form>');
+        $('input[name=name]').prop("value", `@Model.FilterName`);
+        $('input[name=desc]').prop("value", `@Model.FilterDescription`);
+        $('input[name=genre]').prop("value", `@Model.FilterGenre`);
+        $('input[name=director]').prop("value", `@Model.FilterDirector`);
+        $('input[name=session_time]').prop("value", `@Model.FilterSessionTime`);
     })
 </script>
