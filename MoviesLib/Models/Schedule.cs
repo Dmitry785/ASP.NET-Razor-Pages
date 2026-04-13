@@ -12,6 +12,7 @@ namespace Domain.Models
         }
         public Schedule(DateTime dateTime)
         {
+            SessionTime = dateTime;
         }
         public Schedule(DateTime dateTime, Movie movie)
         {

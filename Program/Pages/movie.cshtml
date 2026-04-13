@@ -38,6 +38,7 @@
             foreach (var schedule in schedulesResult.Data!.Where(x => x.Movie.Id == movie.Id))
             {
                 <div class="schedule-item">
+                    <h1>Schedule</h1>
                     <h1 class="schedule-item-session-time">@schedule.SessionTime.ToString("yyyy-MM-dd")</h1>
                 </div>
             }
@@ -64,12 +65,26 @@
         width: 150px;
         border-radius: 10px;
         display: flex;
+        overflow: hidden;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         border: 2px solid black;
+        position: relative;
     }
     .schedule-item-session-time{
         font-size: 20px;
+    }
+    .schedule-item h1:first-child{
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        margin: 0;
+        text-align: center;
+        font-size: 22px;
+        color: white;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+
     }
     .current-movie-container {
         display: flex;
