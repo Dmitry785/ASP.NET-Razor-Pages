@@ -7,6 +7,14 @@
     ViewBag.Title = "Movies";
     Layout = "_Layout";
 }
+@if (Request.Query.Any())
+{
+    <div id="return-container">
+        <a asp-page="index">
+            Return back to the home page
+        </a>
+    </div>
+}
 <div class="main-panel">
     <div class="movies-container">
         @{
@@ -36,11 +44,24 @@
 </div>
 
 <style>
+    #return-container {
+        margin: 20px;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: white;
+        padding: 10px 30px;
+    }
+    #return-container a {
+        text-decoration: none;
+        color: inherit;
+    }
     .filter-panel {
         background: rgba(255, 255, 255, 0.8);
-        margin: 5px;
+        margin: 5px 0 0 5px;
     }
     .filter-panel form {
+        position: sticky;
+        top: 20px;
         display: grid;
         grid-template-columns: auto 1fr;
         grid-auto-rows: 20px;
@@ -66,7 +87,7 @@
         flex: 1 1 300px;
         flex-wrap: wrap;
         gap: 30px 20px;
-        margin: 5px 0;
+        margin: 5px 0 0 0;
         background-color: rgba(255, 255, 255, 0.8);
         padding: 10px;
         min-height: 100vh;

@@ -37,6 +37,7 @@ namespace Application.Services
             if (movie is null)
                 return Result.Fail("Не удалось найти фильм");
             _dataStorage.Movies.Remove(movie);
+            _dataStorage.SaveChanges();
             return Result.Ok();
         }
         public Result<List<Movie>> GetAll()
@@ -45,7 +46,7 @@ namespace Application.Services
         }
         public Result<Movie> GetById(Guid id)
         {
-            var movie = _dataStorage.Movies.Include(x=>x.Director)
+            var movie = _dataStorage.Movies.Include(x=>x.Director).Include(x=>x.Schedules)
                 .Include(x=>x.Genre).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (movie is null)
                 return Result<Movie>.Fail("Не удалось найти фильм");

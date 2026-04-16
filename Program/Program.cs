@@ -117,7 +117,6 @@ namespace Program
             }
             app.UseStaticFiles();
             app.MapRazorPages();
-
             app.Run();
         }
     }
