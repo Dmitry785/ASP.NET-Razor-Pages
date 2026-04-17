@@ -55,10 +55,44 @@ namespace Application.Services
 
         public Result Update(Movie movie)
         {
-            var updateMovie = _dataStorage.Movies.FirstOrDefault(x => x.Id == movie.Id);
-            if (updateMovie is null)
-                return Result<Movie>.Fail("Не удалось найти фильм");
-            updateMovie = movie;
+            // 1. Загружаем существующий фильм со всеми связями
+            var existingMovie = _dataStorage.Movies
+                .Include(m => m.Director)
+                .Include(m => m.Genre)
+                .FirstOrDefault(m => m.Id == movie.Id);
+
+            if (existingMovie == null)
+                return Result.Fail("Не удалось найти фильм");
+
+            _dataStorage.Entry(existingMovie).CurrentValues.SetValues(movie);
+
+            if (movie.Director != null)
+            {
+                var dbDirector = _dataStorage.Directors.Find(movie.Director.Id);
+                if (dbDirector == null)
+                {
+                    existingMovie.Director = movie.Director;
+                    _dataStorage.Entry(movie.Director).State = EntityState.Added;
+                }
+                else
+                {
+                    existingMovie.Director = dbDirector;
+                }
+            }
+            if (movie.Genre != null)
+            {
+                var dbGenre = _dataStorage.Genres.Find(movie.Genre.Id);
+                if (dbGenre == null)
+                {
+                    existingMovie.Genre = movie.Genre;
+                    _dataStorage.Entry(movie.Genre).State = EntityState.Added;
+                }
+                else
+                {
+                    existingMovie.Genre = dbGenre;
+                }
+            }
+            _dataStorage.SaveChanges();
             return Result.Ok();
         }
     }

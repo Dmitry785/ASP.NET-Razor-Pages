@@ -1,0 +1,171 @@
+﻿@page "/movie/{id:guid}/edit";
+@model Program.Pages.EditMovieModel
+@using Application.Services.Interfaces;
+@using Domain.Models;
+@inject IDataAccessService<Movie> Movies;
+@{
+    ViewBag.Title = "Edit Movie";
+    Layout = "_Layout";
+}
+@{
+    var currentMovieResult = Movies.GetById(Model.Id);
+    var movie = new Movie();
+    if (currentMovieResult.Success)
+        movie = currentMovieResult.Data!;
+    else
+        return;
+}
+<form asp-antiforgery="true">
+    <fieldset>
+        <legend>Edit Movie</legend>
+        <div>
+            <datalist id="genres-list">
+                <option value="Opt 1"/>
+                <option value="Opt 2"/>
+                <option value="Opt 3"/>
+            </datalist>
+            <datalist id="directors-list">
+                <option value="Opt 4"/>
+                <option value="Opt 5"/>
+                <option value="Opt 6"/>
+            </datalist>
+            <input name="name" placeholder="Name" required value="@movie.Name"> <br>
+            <input name="director" list="directors-list" placeholder="Director" required value="@movie.Director.FullName"> <br>
+            <input name="genre" list="genres-list" placeholder="Genre" required value="@movie.Genre.Name"> <br>
+            <textarea name="desc" placeholder="Description" required>@movie.Description</textarea> <br>
+            <input name="poster" type="url" placeholder="Poster url" value="@movie.Poster"> <br>
+            <input name="year" type="number" placeholder="Year" required value="@movie.Year"> <br>
+            <input value="@movie.Id"> <br>
+        </div>
+        <div class="presentation-container">
+                    
+        </div>
+        <button type="submit">Edit</button>
+    </fieldset> 
+</form>
+
+
+<style>
+    form {
+        padding: 10px 100px 0 50px;
+    }
+
+    fieldset {
+        position: relative;
+        border: none;
+        display: flex;
+        justify-content: space-evenly;
+        background: linear-gradient(grey, white);
+        padding: 100px;
+        border-radius: 10px;
+        gap: 10px;
+    }
+
+    legend {
+        position: absolute;
+        left: -40px;
+        top: 15px;
+        padding: 10px 80px 10px 30px;
+        background: black;
+        color: white;
+        font-size: 20px;
+    }
+
+    button[type=submit] {
+        margin-top: auto;
+        padding: 10px 30px;
+    }
+
+    input {
+        padding: 5px 30px;
+        margin: 5px;
+    }
+
+    textarea {
+        padding: 5px 30px;
+        margin: 5px;
+        height: 50px;
+        width: 200px;
+        resize: none;
+    }
+
+    .presentation-container {
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        width: 250px;
+        background-color: darkgray;
+        flex-direction: column;
+    }
+
+    .movie-item-poster {
+        padding: 10px;
+        flex: 0 0 300px;
+        object-fit: contain;
+        background: darkgreen;
+        overflow: hidden;
+    }
+
+    .movie-item-name {
+        flex-shrink: 0;
+        padding: 3px;
+        font-size: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+
+    .movie-item-director {
+        flex-shrink: 0;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 10px;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .movie-item-genre {
+        flex-shrink: 0;
+        font-size: 15px;
+        margin: auto 10px 0 auto;
+        text-shadow: 2px 1px gray;
+    }
+
+    .movie-item-year {
+        flex-shrink: 0;
+        font-size: 18px;
+        padding: 0 3px 5px 0;
+        margin: 5px 5px 0 auto;
+    }
+</style>
+
+<script>
+    $(function () {
+        UpdatePresentation();
+        setInterval(UpdatePresentation, 1000);
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({ 
+                url: "/movie/@movie.Id",
+                type: "PUT",
+                data: $(this).serialize()
+            }).done(function (){
+                window.location.href = "/movie/@movie.Id";
+            }).fail(function (){
+                alert("Failure")
+            });
+        });
+    })
+    function UpdatePresentation() {
+        const cont = $('.presentation-container');
+        cont.empty();
+        cont.append(`<img class="movie-item-poster" src="${$('input[name=poster]').val()}"/>`);
+        cont.append(`<h1 class="movie-item-name">${$('input[name=name]').val()}</h1>`);
+        cont.append(`<h1 class="movie-item-director">${$('input[name=director]').val()}</h1>`);
+        cont.append(`<h1 class="movie-item-genre">${$('input[name=genre]').val()}</h1>`);
+        cont.append(`<h1 class="movie-item-year">${$('input[name=year]').val()}</h1>`);
+    }
+</script>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Interfaces
 {
@@ -14,6 +15,7 @@ namespace Infrastructure.Interfaces
         DbSet<Director> Directors { get; set; }
         DbSet<Genre> Genres { get; set; }
         DbSet<Schedule> Schedules { get; set; }
+        EntityEntry Entry(object entity);
         Task<int> SaveChangesAsync(CancellationToken token);
         int SaveChanges();
     }

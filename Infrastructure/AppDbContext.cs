@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Infrastructure
@@ -11,6 +12,7 @@ namespace Infrastructure
         public DbSet<Director> Directors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
+        
         public AppDbContext(DbContextOptions options)
             : base(options) 
         {
