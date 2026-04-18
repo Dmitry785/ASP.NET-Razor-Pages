@@ -55,7 +55,6 @@ namespace Application.Services
 
         public Result Update(Movie movie)
         {
-            // 1. Загружаем существующий фильм со всеми связями
             var existingMovie = _dataStorage.Movies
                 .Include(m => m.Director)
                 .Include(m => m.Genre)

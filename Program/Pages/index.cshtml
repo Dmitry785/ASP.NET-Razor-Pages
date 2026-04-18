@@ -7,14 +7,21 @@
     ViewBag.Title = "Movies";
     Layout = "_Layout";
 }
-@if (Request.Query.Any())
-{
-    <div id="return-container">
-        <a asp-page="index">
-            Return back to the home page
+<div class="header-container">
+    @if (Request.Query.Any())
+    {
+        <div id="return-container">
+            <a asp-page="index">
+                Remove filter
+            </a>
+        </div>
+    }
+    <div class="add-movie-ref-container">
+        <a asp-page="addMovie">
+           Add movie
         </a>
     </div>
-}
+</div>
 <div class="main-panel">
     <div class="movies-container">
         @{
@@ -44,6 +51,22 @@
 </div>
 
 <style>
+    .header-container{
+        display: flex;
+    }
+    .add-movie-ref-container{
+        margin: 20px;
+        margin-left: auto;
+        border-radius: 10px;
+        display: inline-block;
+        background-color: lightblue;
+        padding: 10px 30px;
+    }
+
+    .add-movie-ref-container a {
+        text-decoration: none;
+        color: inherit;
+    }
     #return-container {
         margin: 20px;
         border-radius: 10px;
