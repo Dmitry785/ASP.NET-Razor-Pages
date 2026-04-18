@@ -1,28 +1,19 @@
-﻿@page "/movie/{id:guid}/edit";
-@model Program.Pages.EditMovieModel
+﻿@page
+@model Program.Pages.AddMovieModel
 @using Application.Services.Interfaces;
 @using Domain.Models;
-@inject IDataAccessService<Movie> Movies;
 @inject IDataAccessService<Genre> Genres;
 @inject IDataAccessService<Director> Directors;
 @{
-    ViewBag.Title = "Edit Movie";
+    ViewBag.Title = "Add Movie";
     Layout = "_Layout";
-}
-@{
-    var currentMovieResult = Movies.GetById(Model.Id);
-    var movie = new Movie();
-    if (currentMovieResult.Success)
-        movie = currentMovieResult.Data!;
-    else
-        return;
 }
 <form asp-antiforgery="true">
     <fieldset>
-        <legend>Edit Movie</legend>
+        <legend>Add Movie</legend>
         <div>
             <datalist id="genres-list">
-                @foreach(var genre in Genres.GetAll().Data ?? new List<Genre>())
+                @foreach (var genre in Genres.GetAll().Data ?? new List<Genre>())
                 {
                     <option value="@genre.Name" />
                 }
@@ -33,27 +24,23 @@
                     <option value="@director.FullName" />
                 }
             </datalist>
-            <input name="name" placeholder="Name" required value="@movie.Name"> <br>
-            <input name="director" list="directors-list" placeholder="Director" required value="@movie.Director.FullName"> <br>
-            <input name="genre" list="genres-list" placeholder="Genre" required value="@movie.Genre.Name"> <br>
-            <textarea name="desc" placeholder="Description" required>@movie.Description</textarea> <br>
-            <input name="poster" type="url" placeholder="Poster url" value="@movie.Poster"> <br>
-            <input name="year" type="number" placeholder="Year" required value="@movie.Year"> <br>
-            <input value="@movie.Id" readonly> <br>
+            <input name="name" placeholder="Name" required> <br>
+            <input name="director" list="directors-list" placeholder="Director" required> <br>
+            <input name="genre" list="genres-list" placeholder="Genre" required> <br>
+            <textarea name="desc" placeholder="Description" required></textarea> <br>
+            <input name="poster" type="url" placeholder="Poster url"> <br>
+            <input name="year" type="number" placeholder="Year" required> <br>
         </div>
         <div class="presentation-container">
-                    
         </div>
-        <button type="submit">Edit</button>
-    </fieldset> 
+        <button type="submit">Add</button>
+    </fieldset>
 </form>
-
 
 <style>
     form {
         padding: 10px 100px 0 50px;
     }
-
     fieldset {
         position: relative;
         border: none;
@@ -64,7 +51,6 @@
         border-radius: 10px;
         gap: 10px;
     }
-
     legend {
         position: absolute;
         left: -40px;
@@ -74,17 +60,14 @@
         color: white;
         font-size: 20px;
     }
-
     button[type=submit] {
         margin-top: auto;
         padding: 10px 30px;
     }
-
     input {
         padding: 5px 30px;
         margin: 5px;
     }
-
     textarea {
         padding: 5px 30px;
         margin: 5px;
@@ -92,7 +75,6 @@
         width: 200px;
         resize: none;
     }
-
     .presentation-container {
         border-radius: 10px;
         overflow: hidden;
@@ -101,7 +83,6 @@
         background-color: darkgray;
         flex-direction: column;
     }
-
     .movie-item-poster {
         padding: 10px;
         flex: 0 0 300px;
@@ -109,7 +90,6 @@
         background: darkgreen;
         overflow: hidden;
     }
-
     .movie-item-name {
         flex-shrink: 0;
         padding: 3px;
@@ -119,7 +99,6 @@
         text-overflow: ellipsis;
         margin: 0;
     }
-
     .movie-item-director {
         flex-shrink: 0;
         font-weight: normal;
@@ -130,14 +109,12 @@
         font-size: 18px;
         margin: 0;
     }
-
     .movie-item-genre {
         flex-shrink: 0;
         font-size: 15px;
         margin: auto 10px 0 auto;
         text-shadow: 2px 1px gray;
     }
-
     .movie-item-year {
         flex-shrink: 0;
         font-size: 18px;
@@ -152,14 +129,10 @@
         setInterval(UpdatePresentation, 1000);
         $('form').submit(function (e) {
             e.preventDefault();
-            $.ajax({ 
-                url: "/movie/@movie.Id",
-                type: "PUT",
-                data: $(this).serialize()
-            }).done(function (){
-                window.location.href = "/movie/@movie.Id";
-            }).fail(function (){
-                alert("Failure")
+            $.post("", $(this).serialize()).done(function () {
+                window.location.href = "/";
+            }).fail(function () {
+                alert("Failure");
             });
         });
     })

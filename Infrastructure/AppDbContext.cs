@@ -3,6 +3,7 @@ using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Reflection.Emit;
 
 namespace Infrastructure
 {
@@ -20,9 +21,9 @@ namespace Infrastructure
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().HasIndex(x => x.Id);
-            modelBuilder.Entity<Director>().HasIndex(x => x.Id);
-            modelBuilder.Entity<Genre>().HasIndex(x => x.Id);
+            modelBuilder.Entity<Movie>().HasKey(x => x.Id);
+            modelBuilder.Entity<Director>().HasKey(x => x.Id);
+            modelBuilder.Entity<Genre>().HasKey(x => x.Id);
         }
     }
 }

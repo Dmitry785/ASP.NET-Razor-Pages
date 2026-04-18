@@ -28,4 +28,12 @@
     <Resource Include="static\images\movies-background.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\addMovie.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\addMovie.cshtml" />
+  </ItemGroup>
+
 </Project>
