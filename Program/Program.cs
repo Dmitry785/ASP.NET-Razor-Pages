@@ -38,7 +38,10 @@ namespace Program
             {
                 if (USE_DEFAULT_DATA_API)
                 {
-                    MoviesApiService moviesApi = new MoviesApiService("5b03492e", new List<string>()
+                    var apiToken = builder.Configuration["MoviesApi"];
+                    if (apiToken != null && apiToken != string.Empty)
+                    {
+                        MoviesApiService moviesApi = new MoviesApiService(apiToken, new List<string>()
                         {
                             "Matrix",
                             "Misery",
@@ -48,26 +51,28 @@ namespace Program
                             "harry potter",
                             "godfather"
                         });
-                    int filmCounter = 0;
-                    foreach (var movieData in await moviesApi.LoadSomeMovies())
-                    {
-                        var directorsResult = directorsDataAccess.GetAll();
-                        var genresResult = genreDataAccess.GetAll();
-                        if (directorsResult.Success && genresResult.Success)
+                        int filmCounter = 0;
+                        foreach (var movieData in await moviesApi.LoadSomeMovies())
                         {
-                            var director = directorsResult.Data!.FirstOrDefault(x=>x.FullName == movieData.Director);
-                            var genre = genresResult.Data!.FirstOrDefault(x=>x.Name == movieData.Genre);
-                            if (director == null)
-                                director = new Director(movieData.Director);
-                            if (genre == null)
-                                genre = new Genre(movieData.Genre);
-                            var movie = new Movie(movieData.Name, movieData.Description, movieData.Year,
-                                director, genre, movieData.Poster);
-                            for (int i = 0; i < filmCounter; i++){
-                                movie.Schedules.Add(new Schedule(DateTime.Now));
+                            var directorsResult = directorsDataAccess.GetAll();
+                            var genresResult = genreDataAccess.GetAll();
+                            if (directorsResult.Success && genresResult.Success)
+                            {
+                                var director = directorsResult.Data!.FirstOrDefault(x => x.FullName == movieData.Director);
+                                var genre = genresResult.Data!.FirstOrDefault(x => x.Name == movieData.Genre);
+                                if (director == null)
+                                    director = new Director(movieData.Director);
+                                if (genre == null)
+                                    genre = new Genre(movieData.Genre);
+                                var movie = new Movie(movieData.Name, movieData.Description, movieData.Year,
+                                    director, genre, movieData.Poster);
+                                for (int i = 0; i < filmCounter; i++)
+                                {
+                                    movie.Schedules.Add(new Schedule(DateTime.Now));
+                                }
+                                filmCounter++;
+                                moviesDataAccess.Create(movie);
                             }
-                            filmCounter++;
-                            moviesDataAccess.Create(movie);
                         }
                     }
                 }
